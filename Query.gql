@@ -1,0 +1,52 @@
+type Query {
+  user: User!
+  portfolio(input: LoanSearchInput): Portfolio
+  activeLoans(input: ActiveLoansInput): ActiveLoans
+  adminLoans(input: AdminLoansInput): AdminLoans
+  "Deprecated. Used to support mock data"
+  inputSuggestions(filter: String, type: [Int]): [CategoryOption]
+  "Find suggestion by Loan, Collateral, Geography or Property"
+  generalSuggestions(filter: String): [GeneralCategoryOption]
+  screeningSuggestions(filter: String): [GeneralCategoryOption]
+  participantSuggestions(filter: String): [ParticipantCategoryOption]
+  stakeholderSuggestions(filter: String): [StakeholderCategoryOption]
+  trueBorrowerSuggestions(filter: String): [StakeholderCategoryOption]
+  institutionLossToSuggestions(filter: String): [InstitutionCategoryOption]
+  geographySuggestions(filter: String): [GeographyCategoryOption]
+  tenantSuggestions(filter: String, tenantType: TenantType): [TenantCategoryOption]
+  propertyListSuggestions(filter: String): [PropertyCategoryOption]
+  adminGeneralSuggestions(filter: String, isScreening: String): [GeneralCategoryOption]
+  adminCollateralSuggestions(input: AdminCollateralSuggestionsInput): [CollateralSearchOption]
+  portfolioSummary: PortfolioSummary!
+  "Find a Loan by ID"
+  loan("The Loan ID" costarLoanId: ID!): Loan
+  "Find all loans by a search criteria"
+  loans(input: LoanSearchInput): LoanResult!
+  loanPositionInLoanList(input: LoanSearchInput): LoanPositionInLoanList!
+  borrowers(input: BorrowerInput): Borrowers
+  tenants(input: TenantsInput): Tenants
+  tenantDetails(input: TenantDetailsInput): TenantDetails
+  propertiesList(input: PropertyInput): Properties
+  collaterals(input: CollateralInput): Collaterals
+  originations(input: OriginationInput): Originations
+  markets(input: MarketInput): Markets
+  "Find list of markets/submarkets by Property"
+  geographies(propertyTypeIdList: [Int]): GeographiesWithStatusCode
+  news: News
+  maps: Maps
+  admin: Admin!
+  concentrations(input: ConcentrationSearchInput): Concentrations
+  cecl: Cecl
+  stressTests: StressTests
+  account(key: ID): Account!
+  "Find property data by ID"
+  properties(input: PropertyIds): AdminPropertyResult
+  "Find market/submarket for any costar property"
+  propertyGeography(propertyId: Int!): AdminPropertyGeographyResult
+  debugInfo: DebugInfo
+  loanSetRetrievalStatus(input: LoanSetRetrievalStatusInput): LoanSetRetrievalStatus
+  prefetchLoanSet(lifecycleTypeId: Int): String
+  loanProcessingStatus(loanId: ID, lifecycleTypeId: Int): Int
+  modelOptions(coStarLoanID: ID): ModelOptions
+  gridLayout(groupTag: String!): EntitiesResponse
+}

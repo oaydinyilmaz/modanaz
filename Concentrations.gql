@@ -1,0 +1,87 @@
+input ConcentrationTypeFilter {
+  concentrationTypeId: Int
+  comparisonScenario: Int
+}
+
+input ConcentrationSearchInput {
+  filters: ConcentrationTypeFilter
+  concentrationType: Int
+  comparisonScenario: Int
+  sorting: [SortCriteriaInput!]
+  paging: PagingCriteriaInput
+}
+
+type Concentrations {
+  concentrationTypeId: Int
+  comparisonScenarioTypeId: Int
+  statusCode: Int
+  market(input: ConcentrationSearchInput): [ConcentrationRow]
+  submarket(input: ConcentrationSearchInput): [ConcentrationRow]
+  propertyType(input: ConcentrationSearchInput): [ConcentrationRow]
+  industry(input: ConcentrationSearchInput): [ConcentrationRow]
+  tenant(input: ConcentrationSearchInput): [ConcentrationRow]
+  trueOwner(input: ConcentrationSearchInput): [ConcentrationRow]
+  trueBorrower(input: ConcentrationSearchInput): [ConcentrationRow]
+  originationYear(input: ConcentrationSearchInput): [ConcentrationRow]
+  loanType(input: ConcentrationSearchInput): [ConcentrationRow]
+}
+
+type ConcentrationRow {
+  concentrationName: ID
+    @deprecated(reason: "Use concentrationTypeId and match to enum @costar/lender-core#RiskEnums.ConcentrationType")
+  concentrationTypeId: Int
+  entityName: String
+  trueOwnerId: String
+  trueBorrowerId: String
+  entityId: Int
+  entityCount: Int
+  parentEntityName: String
+  parentEntityId: Int
+  propertyTypeId: Int
+  parentTypeId: Int
+  subMarketGeographyId: Int
+  subMarketGeographyTypeId: Int
+  tenantGuid: String
+  # Common fields
+  balance: Float
+  portfolioPercent: Float
+  maxPortfolioPercent: Float
+  limit: Float
+  sfOccupied: Int
+  sfOwned: Int
+  loanCount: Int
+  delinquentLoanCount: Int
+  collateralCount: Int
+  ltv: Float
+  dscr: Float
+  elPercent: Float
+  elAmount: Float
+  riskRating: Int
+  debtYield: Float
+  pdPercent: Float
+  # Forecast Scenario Fields
+  # Stress
+  stressRiskRating: Int
+  stressPdPercent: Float
+  stressPdPercentVariance: Float
+  stressElPercent: Float
+  stressElAmount: Float
+  stressElPercentVariance: Float
+  stressElAmountVariance: Float
+  # Secondary1
+  secondary1RiskRating: Int
+  secondary1PdPercent: Float
+  secondary1PdPercentVariance: Float
+  secondary1ElPercent: Float
+  secondary1ElAmount: Float
+  secondary1ElPercentVariance: Float
+  secondary1ElAmountVariance: Float
+  # Secondary2
+  secondary2RiskRating: Int
+  secondary2PdPercent: Float
+  secondary2PdPercentVariance: Float
+  secondary2ElPercent: Float
+  secondary2ElAmount: Float
+  secondary2ElPercentVariance: Float
+  secondary2ElAmountVariance: Float
+}
